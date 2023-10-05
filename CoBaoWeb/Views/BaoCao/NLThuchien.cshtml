@@ -1,0 +1,170 @@
+﻿@model CoBaoWeb.Models.BCNLThuchien
+@{
+    ViewData["Title"] = "BC NL Thực hiện";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="BaoCao" asp-action="NLThuchien">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="BCTratim.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn tuyến</h6>
+                                    <select asp-for="BCTratim.Tuyen" id="drbTuyen" class="form-control" asp-items="@ViewBag.tuyen">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">                               
+                                <div class="col-lg-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nguồn</h6>
+                                    <select asp-for="BCTratim.Nguon" id="drbNguon" class="form-control" asp-items="@ViewBag.nguon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn báo cáo</h6>
+                                    <select asp-for="BCTratim.Nhombc" id="drbNhombc" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="BCTratim.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="BCTratim.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary" method="post" asp-controller="BaoCao" asp-action="NLThuchien">Tra tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.BCTHNLInfo != null)
+                        {
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Nhóm công tác cha
+                                    </th>
+                                    <th>
+                                        Nhóm công tác con
+                                    </th>
+                                    <th>
+                                        Loại công tác
+                                    </th>
+                                    <th>
+                                        Loại máy
+                                    </th>
+                                    <th>
+                                        Tấn KM
+                                    </th>
+                                    <th>
+                                        Giờ dồn
+                                    </th>
+                                    <th>
+                                        ĐM Tiêu chuẩn
+                                    </th>
+                                    <th>
+                                        ĐM Tiêu thụ
+                                    </th>
+                                    <th>
+                                        NL Tiêu chuẩn
+                                    </th>
+                                    <th>
+                                        NL Tiêu thụ
+                                    </th>
+                                    <th>
+                                        NL Tiết kiệm
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BCTHNLInfo)
+                                {
+                                <tr>
+                                    <td align="left" style="min-width:100px">
+                                        @Html.DisplayFor(modelItem => item.TenCap1)
+                                    </td>
+                                    <td align="left" style="min-width:100px">
+                                        @Html.DisplayFor(modelItem => item.TenCap2)
+                                    </td>
+                                    <td align="left" style="min-width:100px">
+                                        @Html.DisplayFor(modelItem => item.TenCap3)
+                                    </td>
+                                    <td align="left" style="min-width:100px">
+                                        @Html.DisplayFor(modelItem => item.MaLM)
+                                    </td>
+                                    <td align="right">
+                                        @if (item.TanKM != 0)@Html.DisplayFor(modelItem => item.TanKM) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.GioDon != 0)@Html.DisplayFor(modelItem => item.GioDon) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.DMKH != 0)@Html.DisplayFor(modelItem => item.DMKH) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.DMTH != 0)@Html.DisplayFor(modelItem => item.DMTH) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.NLTC != 0)@Html.DisplayFor(modelItem => item.NLTC) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.NLTT != 0)@Html.DisplayFor(modelItem => item.NLTT) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.NLLL != 0)@Html.DisplayFor(modelItem => item.NLLL) else @Html.Display("--")
+                                    </td>                                   
+                                </tr>
+                                }
+                    </tbody>
+                    </table>
+                    }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="PdfReport_NLThuchien">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="ExcelReport_NLThuchien">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="WordReport_NLThuchien">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="HtmlReport_NLThuchien">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+ </main>

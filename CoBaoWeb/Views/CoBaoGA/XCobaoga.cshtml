@@ -1,0 +1,348 @@
+﻿@model CoBaoWeb.Models.TTXCobaoga
+@{
+    ViewData["Title"] = "CBGA Xuất Cơ báo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <form method="post" asp-controller="CoBaoGA" asp-action="XCobaoga">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                <select asp-for="XCobaodtTT.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn loại máy</h6>
+                                <select asp-for="XCobaodtTT.Loaimay" id="drbLoaimay" class="form-control" asp-items="@ViewBag.loaimay">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn loại dữ liệu</h6>
+                                <select asp-for="XCobaodtTT.Loaidon" id="drbLoaidon" class="form-control" asp-items="@ViewBag.loaidon">
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Tháng</h6>
+                                <select asp-for="XCobaodtTT.Thang" id="drbThang" class="form-control" asp-items="@ViewBag.thang">
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Năm</h6>
+                                <select asp-for="XCobaodtTT.Nam" id="drbNam" class="form-control" asp-items="@ViewBag.nam">
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                <button type="submit" class="btn btn-outline-primary">Tra tìm</button>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút Excel</h6>
+                                <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="CoBaoGA" asp-action="ExcelReport_XCobaoga">Xuất Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.XCoBaoGA != null)
+                        {
+                            @if (Model.XCoBaoGA.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin cơ báo: @Model.XCoBaoGA.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Tài xế
+                                            </th>
+                                            <th>
+                                                Phó xế
+                                            </th>
+                                            <th>
+                                                Lên ban
+                                            </th>
+                                            <th>
+                                                Nhận máy
+                                            </th>
+                                            <th>
+                                                Ra kho
+                                            </th>
+                                            <th>
+                                                Vào kho
+                                            </th>
+                                            <th>
+                                                Giao máy
+                                            </th>
+                                            <th>
+                                                Xuống ban
+                                            </th>
+                                            <th>
+                                                NL b.trước
+                                            </th>
+                                            <th>
+                                                NL lĩnh
+                                            </th>
+                                            <th>
+                                                NL trạm
+                                            </th>
+                                            <th>
+                                                NL t.đó
+                                            </th>
+                                            <th>
+                                                NL b.sau
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.XCoBaoGA)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NgayCB)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.SoCB)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.DauMayID)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXe1Name)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.PhoXe1Name)
+                                                </td>
+                                                <td style="min-width:140px">
+                                                    @Html.DisplayFor(modelItem => item.LenBan)
+                                                </td>
+                                                <td style="min-width:140px">
+                                                    @Html.DisplayFor(modelItem => item.NhanMay)
+                                                </td>
+                                                <td style="min-width:140px">
+                                                    @Html.DisplayFor(modelItem => item.RaKho)
+                                                </td>
+                                                <td style="min-width:140px">
+                                                    @Html.DisplayFor(modelItem => item.VaoKho)
+                                                </td>
+                                                <td style="min-width:140px">
+                                                    @Html.DisplayFor(modelItem => item.GiaoMay)
+                                                </td>
+                                                <td style="min-width:140px">
+                                                    @Html.DisplayFor(modelItem => item.XuongBan)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.NLBanTruoc != 0)@Html.DisplayFor(modelItem => item.NLBanTruoc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.NLLinh != 0)@Html.DisplayFor(modelItem => item.NLLinh) else @Html.Display("--")
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TramNLID)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.NLTrongDoan != 0)@Html.DisplayFor(modelItem => item.NLTrongDoan) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.NLBanSau != 0)@Html.DisplayFor(modelItem => item.NLBanSau) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.XCoBaoGACT != null)
+                        {
+                            @if (Model.XCoBaoGACT.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin chi tiết cơ báo: @Model.XCoBaoGACT.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày xp
+                                            </th>
+                                            <th>
+                                                Giờ đến
+                                            </th>
+                                            <th>
+                                                Giờ đi
+                                            </th>
+                                            <th>
+                                                Phút dồn
+                                            </th>
+                                            <th>
+                                                Mác tầu
+                                            </th>
+                                            <th>
+                                                Ga tn
+                                            </th>
+                                            <th>
+                                                Loại tầu
+                                            </th>
+                                            <th>
+                                                Tính chất
+                                            </th>
+                                            <th>
+                                                Số xe
+                                            </th>
+                                            <th>
+                                                Tấn số
+                                            </th>
+                                            <th>
+                                                Xe rỗng
+                                            </th>
+                                            <th>
+                                                Tấn rỗng
+                                            </th>
+                                            <th>
+                                                Máy liên quan
+                                            </th>
+                                            <th>
+                                                Km k.gian
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.XCoBaoGACT)
+                                        {
+                                            <tr>
+                                                <td style="min-width:160px">
+                                                    @Html.DisplayFor(modelItem => item.NgayXP)
+                                                </td>
+                                                <td style="min-width:160px">
+                                                    @Html.DisplayFor(modelItem => item.GioDen)
+                                                </td>
+                                                <td style="min-width:160px">
+                                                    @Html.DisplayFor(modelItem => item.GioDi)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.PhutDon != 0)@Html.DisplayFor(modelItem => item.PhutDon) else @Html.Display("--")
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MacTauID)
+                                                </td>
+                                                <td style="min-width:120px">
+                                                    @Html.DisplayFor(modelItem => item.GaName)
+                                                </td>
+                                                <td style="min-width:220px">
+                                                    @Html.DisplayFor(modelItem => item.LoaiTauName)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.TinhChatName)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.XeTotal != 0)@Html.DisplayFor(modelItem => item.XeTotal) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.Tan != 0)@Html.DisplayFor(modelItem => item.Tan) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.XeRongTotal != 0)@Html.DisplayFor(modelItem => item.XeRongTotal) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.TanXeRong != 0)@Html.DisplayFor(modelItem => item.TanXeRong) else @Html.Display("--")
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.MayGhepID)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.KmAdd != 0)@Html.DisplayFor(modelItem => item.KmAdd) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.XCoBaoGADM != null)
+                        {
+                            @if (Model.XCoBaoGADM.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin dầu mỡ cơ báo: @Model.XCoBaoGADM.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Cơ báo id
+                                            </th>
+                                            <th>
+                                                Dầu mỡ id
+                                            </th>
+                                            <th>
+                                                Loại dầu mỡ
+                                            </th>
+                                            <th>
+                                                Đơn vị
+                                            </th>
+                                            <th>
+                                                DM nhận
+                                            </th>
+                                            <th>
+                                                DM lĩnh
+                                            </th>
+                                            <th>
+                                                DM trạm
+                                            </th>
+                                            <th>
+                                                DM giao
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.XCoBaoGADM)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.CoBaoID)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.LoaiDauMoID)
+                                                </td>
+                                                <td style="min-width:180px">
+                                                    @Html.DisplayFor(modelItem => item.LoaiDauMoName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DonViTinh)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.Nhan != 0)@Html.DisplayFor(modelItem => item.Nhan) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.Linh != 0)@Html.DisplayFor(modelItem => item.Linh) else @Html.Display("--")
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.TenTram)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.Giao != 0)@Html.DisplayFor(modelItem => item.Giao) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>              
+            </div>
+        </form>
+    </div>   
+</main>

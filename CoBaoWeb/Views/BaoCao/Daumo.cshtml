@@ -1,0 +1,476 @@
+﻿@model CoBaoWeb.Models.BCDaumo
+@{
+    ViewData["Title"] = "BC Dầu mỡ";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="BaoCao" asp-action="Daumo">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="BCTratim.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nhóm báo cáo</h6>
+                                    <select asp-for="BCTratim.Loaidon" id="drbNguon" class="form-control" asp-items="@ViewBag.loaidon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nguồn</h6>
+                                    <select asp-for="BCTratim.Nguon" id="drbNguon" class="form-control" asp-items="@ViewBag.nguon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn báo cáo</h6>
+                                    <select asp-for="BCTratim.Nhombc" id="drbNhombc" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="BCTratim.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="BCTratim.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary" method="post" asp-controller="BaoCao" asp-action="Daumo">Tra tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <!--Tồn nhiên liệu-->
+                        @if (Model.BCTonNLInfo != null)
+                        {
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Loại máy
+                                        </th>
+                                        <th>
+                                            Đầu máy
+                                        </th>
+                                        <th>
+                                            Tồn đầu
+                                        </th>
+                                        <th>
+                                            Lào cai
+                                        </th>
+                                        <th>
+                                            Xuân giao
+                                        </th>
+                                        <th>
+                                            Yên bái
+                                        </th>
+                                        <th>
+                                            Việt trì
+                                        </th>
+                                        <th>
+                                            Lâm thao
+                                        </th>
+                                        <th>
+                                            Mạo khê
+                                        </th>
+                                        <th>
+                                            Đồng đăng
+                                        </th>
+                                        <th>
+                                            Yên viên
+                                        </th>
+                                        <th>
+                                            Hải phòng
+                                        </th>
+                                        <th>
+                                            Hà nội
+                                        </th>
+                                        <th>
+                                            Giáp bát
+                                        </th>
+                                        <th>
+                                            Ninh bình
+                                        </th>
+                                        <th>
+                                            Thanh hóa
+                                        </th>
+                                        <th>
+                                            Vinh
+                                        </th>
+                                        <th>
+                                            Phuc trạch
+                                        </th>
+                                        <th>
+                                            Đồng hới
+                                        </th>
+                                        <th>
+                                            Huế
+                                        </th>
+                                        <th>
+                                            Đà nẵng
+                                        </th>
+                                        <th>
+                                            Quảng ngãi
+                                        </th>
+                                        <th>
+                                            Diêu trì
+                                        </th>
+                                        <th>
+                                            Nha trang
+                                        </th>
+                                        <th>
+                                            Bình thuận
+                                        </th>
+                                        <th>
+                                            Sài gòn
+                                        </th>
+                                        <th>
+                                            Sóng thần
+                                        </th>
+                                        <th>
+                                            Tổng lãnh
+                                        </th>
+                                        <th>
+                                            NL tiêu thụ
+                                        </th>
+                                        <th>
+                                            Tồn cuối
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.BCTonNLInfo)
+                                    {
+                                    <tr>
+                                        <td align="left" style="min-width:80px">
+                                            @Html.DisplayFor(modelItem => item.LoaiMayID)
+                                        </td>
+                                        <td align="left" style="min-width:60px">
+                                            @Html.DisplayFor(modelItem => item.DauMayID)
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TonDau != 0)@Html.DisplayFor(modelItem => item.TonDau) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFLCA != 0)@Html.DisplayFor(modelItem => item.TFLCA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFXGA != 0)@Html.DisplayFor(modelItem => item.TFXGA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFYBI != 0)@Html.DisplayFor(modelItem => item.TFYBI) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFVTR != 0)@Html.DisplayFor(modelItem => item.TFVTR) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFLTH != 0)@Html.DisplayFor(modelItem => item.TFLTH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFMKH != 0)@Html.DisplayFor(modelItem => item.TFMKH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDDA != 0)@Html.DisplayFor(modelItem => item.TFDDA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFYVI != 0)@Html.DisplayFor(modelItem => item.TFYVI) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFHPH != 0)@Html.DisplayFor(modelItem => item.TFHPH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFHNO != 0)@Html.DisplayFor(modelItem => item.TFHNO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFGBA != 0)@Html.DisplayFor(modelItem => item.TFGBA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFNBI != 0)@Html.DisplayFor(modelItem => item.TFNBI) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFTHO != 0)@Html.DisplayFor(modelItem => item.TFTHO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFVIN != 0)@Html.DisplayFor(modelItem => item.TFVIN) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFPUT != 0)@Html.DisplayFor(modelItem => item.TFPUT) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDHO != 0)@Html.DisplayFor(modelItem => item.TFDHO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFHUE != 0)@Html.DisplayFor(modelItem => item.TFHUE) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDNA != 0)@Html.DisplayFor(modelItem => item.TFDNA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFQNG != 0)@Html.DisplayFor(modelItem => item.TFQNG) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDTR != 0)@Html.DisplayFor(modelItem => item.TFDTR) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFNTR != 0)@Html.DisplayFor(modelItem => item.TFNTR) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFBTH != 0)@Html.DisplayFor(modelItem => item.TFBTH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFSGO != 0)@Html.DisplayFor(modelItem => item.TFSGO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFSOT != 0)@Html.DisplayFor(modelItem => item.TFSOT) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.Linh != 0)@Html.DisplayFor(modelItem => item.Linh) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TieuThu != 0)@Html.DisplayFor(modelItem => item.TieuThu) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TonCuoi != 0)@Html.DisplayFor(modelItem => item.TonCuoi) else @Html.Display("--")
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        <!--Tồn dầu mỡ-->
+                        @if (Model.BKDauMoInfo != null)
+                        {
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Loại máy
+                                        </th>
+                                        <th>
+                                            Đầu máy
+                                        </th>
+                                        <th>
+                                            Ngày cb
+                                        </th>
+                                        <th>
+                                           Số cb
+                                        </th>                                       
+                                        <th>
+                                            Lào cai
+                                        </th>
+                                        <th>
+                                            Xuân giao
+                                        </th>
+                                        <th>
+                                            Yên bái
+                                        </th>
+                                        <th>
+                                            Việt trì
+                                        </th>
+                                        <th>
+                                            Lâm thao
+                                        </th>
+                                        <th>
+                                            Mạo khê
+                                        </th>
+                                        <th>
+                                            Đồng đăng
+                                        </th>
+                                        <th>
+                                            Yên viên
+                                        </th>
+                                        <th>
+                                            Hải phòng
+                                        </th>
+                                        <th>
+                                            Hà nội
+                                        </th>
+                                        <th>
+                                            Giáp bát
+                                        </th>
+                                        <th>
+                                            Ninh bình
+                                        </th>
+                                        <th>
+                                            Thanh hóa
+                                        </th>
+                                        <th>
+                                            Vinh
+                                        </th>
+                                        <th>
+                                            Phuc trạch
+                                        </th>
+                                        <th>
+                                            Đồng hới
+                                        </th>
+                                        <th>
+                                            Huế
+                                        </th>
+                                        <th>
+                                            Đà nẵng
+                                        </th>
+                                        <th>
+                                            Quảng ngãi
+                                        </th>
+                                        <th>
+                                            Diêu trì
+                                        </th>
+                                        <th>
+                                            Nha trang
+                                        </th>
+                                        <th>
+                                            Bình thuận
+                                        </th>
+                                        <th>
+                                            Sài gòn
+                                        </th>
+                                        <th>
+                                            Sóng thần
+                                        </th>
+                                        <th>
+                                            Tổng lãnh
+                                        </th>                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.BKDauMoInfo)
+                                    {
+                                    <tr>
+                                        <td align="left" style="min-width:80px">
+                                            @Html.DisplayFor(modelItem => item.LoaiMayID)
+                                        </td>
+                                        <td align="left" style="min-width:60px">
+                                            @Html.DisplayFor(modelItem => item.DauMayID)
+                                        </td>
+                                        <td align="left" style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.NgayCB)
+                                        </td>
+                                        <td align="left" style="min-width:80px">
+                                            @Html.DisplayFor(modelItem => item.SoCB)
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFLCA != 0)@Html.DisplayFor(modelItem => item.TFLCA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFXGA != 0)@Html.DisplayFor(modelItem => item.TFXGA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFYBI != 0)@Html.DisplayFor(modelItem => item.TFYBI) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFVTR != 0)@Html.DisplayFor(modelItem => item.TFVTR) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFLTH != 0)@Html.DisplayFor(modelItem => item.TFLTH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFMKH != 0)@Html.DisplayFor(modelItem => item.TFMKH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDDA != 0)@Html.DisplayFor(modelItem => item.TFDDA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFYVI != 0)@Html.DisplayFor(modelItem => item.TFYVI) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFHPH != 0)@Html.DisplayFor(modelItem => item.TFHPH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFHNO != 0)@Html.DisplayFor(modelItem => item.TFHNO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFGBA != 0)@Html.DisplayFor(modelItem => item.TFGBA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFNBI != 0)@Html.DisplayFor(modelItem => item.TFNBI) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFTHO != 0)@Html.DisplayFor(modelItem => item.TFTHO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFVIN != 0)@Html.DisplayFor(modelItem => item.TFVIN) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFPUT != 0)@Html.DisplayFor(modelItem => item.TFPUT) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDHO != 0)@Html.DisplayFor(modelItem => item.TFDHO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFHUE != 0)@Html.DisplayFor(modelItem => item.TFHUE) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDNA != 0)@Html.DisplayFor(modelItem => item.TFDNA) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFQNG != 0)@Html.DisplayFor(modelItem => item.TFQNG) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFDTR != 0)@Html.DisplayFor(modelItem => item.TFDTR) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFNTR != 0)@Html.DisplayFor(modelItem => item.TFNTR) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFBTH != 0)@Html.DisplayFor(modelItem => item.TFBTH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFSGO != 0)@Html.DisplayFor(modelItem => item.TFSGO) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TFSOT != 0)@Html.DisplayFor(modelItem => item.TFSOT) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.Linh != 0)@Html.DisplayFor(modelItem => item.Linh) else @Html.Display("--")
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="PdfReport_Daumo">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="ExcelReport_Daumo">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="WordReport_Daumo">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="HtmlReport_Daumo">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+</main>

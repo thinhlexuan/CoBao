@@ -1,0 +1,99 @@
+﻿@model CoBaoWeb.Models.TTLytrinh
+@{
+    ViewData["Title"] = "DM Lý trình";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <form method="post" asp-controller="DanhMuc" asp-action="Lytrinh">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn tuyến</h6>
+                                <select asp-for="Tuyentt" id="drbXinghiep" class="form-control" asp-items="@ViewBag.tuyen">
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn ga</h6>
+                                <input asp-for="Gatt" type="text" class="form-control form-control-user" id="txtGa" placeholder="Nhập ga">
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                <button type="submit" class="btn btn-outline-primary">Tra tìm</button>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút Excel</h6>
+                                <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="DanhMuc" asp-action="ExcelReport_Lytrinh">Xuất Excel</button>
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.LyTrinh != null)
+                        {
+                            @if (Model.LyTrinh.Count() > 0)
+                            {                              
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+
+                                            <th>
+                                                Mã tuyến
+                                            </th>
+                                            <th>
+                                                Tên tuyến
+                                            </th>
+                                            <th>
+                                                Mã ga
+                                            </th>
+                                            <th>
+                                                Tên ga
+                                            </th>
+                                            <th>
+                                                Km ga
+                                            </th>
+                                            <th>
+                                                ID
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.LyTrinh)
+                                        {
+                                        <tr>
+                                            <td align="center" style="min-width:90px">
+                                                @Html.DisplayFor(modelItem => item.TuyenID)
+                                            </td>
+                                            <td style="min-width:180px">
+                                                @Html.DisplayFor(modelItem => item.TuyenName)
+                                            </td>
+                                            <td align="center" style="min-width:90px">
+                                                @Html.DisplayFor(modelItem => item.GaID)
+                                            </td>
+                                            <td style="min-width:130px">
+                                                @Html.DisplayFor(modelItem => item.TenGa)
+                                            </td>
+                                            <td align="right">
+                                                @Html.DisplayFor(modelItem => item.Km)
+                                            </td>
+                                            <td align="center">
+                                                @Html.DisplayFor(modelItem => item.ID)
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>               
+            </div>
+        </form>
+    </div>
+   
+</main>

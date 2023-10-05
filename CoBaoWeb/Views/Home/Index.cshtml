@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CoBaoWeb.Models.DauMay>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách loại máy</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                    <thead>
+                        <tr>
+                            <th>
+                                Loại máy
+                            </th>
+                            <th>
+                                ĐM Hà nội
+                            </th>
+                            <th>
+                                ĐM Vinh
+                            </th>
+                            <th>
+                                ĐM Sài gòn
+                            </th>
+                            <th>
+                                Tổng công ty
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LoaiMayID)
+                                </td>
+                                <td align="right">
+                                    @if (item.HN != 0)@Html.DisplayFor(modelItem => item.HN) else @Html.Display("--")
+                                </td>
+                                <td align="right">
+                                    @if (item.VIN != 0)@Html.DisplayFor(modelItem => item.VIN) else @Html.Display("--")
+                                </td>
+                                <td align="right">
+                                    @if (item.SG != 0)@Html.DisplayFor(modelItem => item.SG) else @Html.Display("--")
+                                </td>
+                                <td align="right">
+                                    @if (item.TCT != 0)@Html.DisplayFor(modelItem => item.TCT) else @Html.Display("--")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

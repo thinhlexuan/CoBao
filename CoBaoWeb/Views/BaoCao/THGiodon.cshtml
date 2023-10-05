@@ -1,0 +1,206 @@
+﻿@model CoBaoWeb.Models.BCTHGiodon
+@{
+    ViewData["Title"] = "BC TH Giờ dồn";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="BaoCao" asp-action="THGiodon">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="BCTratim.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn loại dồn</h6>
+                                    <select asp-for="BCTratim.Loaidon" id="drbLoaidon" class="form-control" asp-items="@ViewBag.loaidon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nguồn</h6>
+                                    <select asp-for="BCTratim.Nguon" id="drbNguon" class="form-control" asp-items="@ViewBag.nguon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn báo cáo</h6>
+                                    <select asp-for="BCTratim.Nhombc" id="drbNhombc" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="BCTratim.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="BCTratim.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary" method="post" asp-controller="BaoCao" asp-action="THGiodon">Tra tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.BCGioDonInfo != null)
+                        {
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Xí nghiệp
+                                    </th>
+                                    <th>
+                                        Ga dồn
+                                    </th>
+                                    <th>
+                                        D4H
+                                    </th>
+                                    <th>
+                                        D5H
+                                    </th>
+                                    <th>
+                                        D9E
+                                    </th>
+                                    <th>
+                                        D10H
+                                    </th>
+                                    <th>
+                                        D10HC
+                                    </th>
+                                    <th>
+                                        D11H
+                                    </th>
+                                    <th>
+                                        D12E
+                                    </th>
+                                    <th>
+                                        D13E
+                                    </th>
+                                    <th>
+                                        D18E
+                                    </th>
+                                    <th>
+                                        D19E
+                                    </th>
+                                    <th>
+                                        D20E
+                                    </th>
+                                    <th>
+                                        D4Hr
+                                    </th>
+                                    <th>
+                                        D14Er
+                                    </th>
+                                    <th>
+                                        D19Er
+                                    </th>
+                                    <th>
+                                        Tổng cộng
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BCGioDonInfo)
+                                {
+                                <tr>         
+                                    <td align="left" style="min-width:150px">
+                                        @Html.DisplayFor(modelItem => item.TenXN)
+                                    </td>
+                                    <td align="left" style="min-width:120px">
+                                        @Html.DisplayFor(modelItem => item.TenGa)
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D4H != 0) @Html.DisplayFor(modelItem => item.D4H) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D5H != 0) @Html.DisplayFor(modelItem => item.D5H) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D9E != 0) @Html.DisplayFor(modelItem => item.D9E) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D10H != 0) @Html.DisplayFor(modelItem => item.D10H) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D10H_CAT != 0) @Html.DisplayFor(modelItem => item.D10H_CAT) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D11H != 0) @Html.DisplayFor(modelItem => item.D11H) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D12E != 0)@Html.DisplayFor(modelItem => item.D12E) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D13E != 0)@Html.DisplayFor(modelItem => item.D13E) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D18E != 0)@Html.DisplayFor(modelItem => item.D18E) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D19E != 0)@Html.DisplayFor(modelItem => item.D19E) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D20E != 0)@Html.DisplayFor(modelItem => item.D20E) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D4Hr != 0)@Html.DisplayFor(modelItem => item.D4Hr) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D14E != 0)@Html.DisplayFor(modelItem => item.D14E) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.D19Er != 0)@Html.DisplayFor(modelItem => item.D19Er) else @Html.Display("--")
+                                    </td>                                    
+                                    <td align="right">
+                                        @if (item.Tong != 0)@Html.DisplayFor(modelItem => item.Tong) else @Html.Display("--")
+                                    </td>
+                                </tr>
+                                }
+                    </tbody>
+                    </table>
+                    }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="PdfReport_THGiodon">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="ExcelReport_THGiodon">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="WordReport_THGiodon">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="HtmlReport_THGiodon">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+</main>

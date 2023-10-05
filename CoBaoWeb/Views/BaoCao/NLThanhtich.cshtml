@@ -1,0 +1,378 @@
+﻿@model CoBaoWeb.Models.BCNLThanhtich
+@{
+    ViewData["Title"] = "BC NL Thành tích";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="BaoCao" asp-action="NLThanhtich">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="BCTratim.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn tuyến</h6>
+                                    <select asp-for="BCTratim.Tuyen" id="drbTuyen" class="form-control" asp-items="@ViewBag.tuyen">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">      
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nhóm báo cáo</h6>
+                                    <select asp-for="BCTratim.Loaidon" id="drbNguon" class="form-control" asp-items="@ViewBag.loaidon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nguồn</h6>
+                                    <select asp-for="BCTratim.Nguon" id="drbNguon" class="form-control" asp-items="@ViewBag.nguon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn báo cáo</h6>
+                                    <select asp-for="BCTratim.Nhombc" id="drbNhombc" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="BCTratim.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="BCTratim.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary" method="post" asp-controller="BaoCao" asp-action="NLThanhtich">Tra tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <!--Thành tích theo loại công tác-->
+                        @if (Model.BCTTNLInfo != null)
+                        {
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Loại công tác
+                                        </th>
+                                        <th>
+                                            Loại máy
+                                        </th>
+                                        <th>
+                                            KM chính
+                                        </th>
+                                        <th>
+                                            KM đơn
+                                        </th>
+                                        <th>
+                                            KM ghép
+                                        </th>
+                                        <th>
+                                            KM đẩy
+                                        </th>
+                                        <th>
+                                            KM dồn tđ
+                                        </th>
+                                        <th>
+                                            KM dừng td
+                                        </th>
+                                        <th>
+                                            KM đầu máy
+                                        </th>
+                                        <th>
+                                            Tấn KM
+                                        </th>
+                                        <th>
+                                            NL Tiêu chuẩn
+                                        </th>
+                                        <th>
+                                            NL Tiêu thụ
+                                        </th>
+                                        <th>
+                                            NL Tiêu thụ 15oC
+                                        </th>
+                                        <th>
+                                            ĐM Tiêu chuẩn
+                                        </th>
+                                        <th>
+                                            ĐM Tiêu thụ
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.BCTTNLInfo)
+                                    {
+                                    <tr>
+                                        <td align="left" style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.TenCT)
+                                        </td>
+                                        <td align="left" style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.MaLM)
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMChinh != 0)@Html.DisplayFor(modelItem => item.KMChinh) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDon != 0)@Html.DisplayFor(modelItem => item.KMDon) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMGhep != 0)@Html.DisplayFor(modelItem => item.KMGhep) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDay != 0)@Html.DisplayFor(modelItem => item.KMDay) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDonTD != 0)@Html.DisplayFor(modelItem => item.KMDonTD) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDungTD != 0)@Html.DisplayFor(modelItem => item.KMDungTD) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMTong != 0)@Html.DisplayFor(modelItem => item.KMTong) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TanKM != 0)@Html.DisplayFor(modelItem => item.TanKM) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLTC != 0)@Html.DisplayFor(modelItem => item.NLTC) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLTT != 0)@Html.DisplayFor(modelItem => item.NLTT) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLTT15 != 0)@Html.DisplayFor(modelItem => item.NLTT15) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.DMKH != 0)@Html.DisplayFor(modelItem => item.DMKH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.DMTH != 0)@Html.DisplayFor(modelItem => item.DMTH) else @Html.Display("--")
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        <!--Thành tích theo loại máy-->
+                        @if (Model.BCTTDMInfo != null)
+                        {
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Loại máy
+                                        </th>
+                                        <th>
+                                            Đầu máy
+                                        </th>
+                                        <th>
+                                            KM chính
+                                        </th>
+                                        <th>
+                                            KM đơn
+                                        </th>
+                                        <th>
+                                            KM ghép
+                                        </th>
+                                        <th>
+                                            KM đẩy
+                                        </th>
+                                        <th>
+                                            KM dồn tđ
+                                        </th>
+                                        <th>
+                                            KM dừng td
+                                        </th>
+                                        <th>
+                                            KM đầu máy
+                                        </th>
+                                        <th>
+                                            Tấn KM
+                                        </th>
+                                        <th>
+                                            NL Tiêu chuẩn
+                                        </th>
+                                        <th>
+                                            NL Tiêu thụ
+                                        </th>
+                                        <th>
+                                            NL Tiêu thụ 15oC
+                                        </th>
+                                        <th>
+                                            ĐM Tiêu chuẩn
+                                        </th>
+                                        <th>
+                                            ĐM Tiêu thụ
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.BCTTDMInfo)
+                                    {
+                                    <tr>
+                                        <td align="left" style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.MaLM)
+                                        </td>
+                                        <td align="left" style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.MaDM)
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMChinh != 0)@Html.DisplayFor(modelItem => item.KMChinh) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDon != 0)@Html.DisplayFor(modelItem => item.KMDon) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMGhep != 0)@Html.DisplayFor(modelItem => item.KMGhep) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDay != 0)@Html.DisplayFor(modelItem => item.KMDay) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDonTD != 0)@Html.DisplayFor(modelItem => item.KMDonTD) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMDungTD != 0)@Html.DisplayFor(modelItem => item.KMDungTD) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KMTong != 0)@Html.DisplayFor(modelItem => item.KMTong) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TanKM != 0)@Html.DisplayFor(modelItem => item.TanKM) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLTC != 0)@Html.DisplayFor(modelItem => item.NLTC) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLTT != 0)@Html.DisplayFor(modelItem => item.NLTT) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLTT15 != 0)@Html.DisplayFor(modelItem => item.NLTT15) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.DMKH != 0)@Html.DisplayFor(modelItem => item.DMKH) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.DMTH != 0)@Html.DisplayFor(modelItem => item.DMTH) else @Html.Display("--")
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        <!--Thành tích theo tài xế-->
+                        @if (Model.BCTTTXInfo != null)
+                        {
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Xí nghiệp
+                                        </th>
+                                        <th>
+                                            Trạm
+                                        </th>
+                                        <th>
+                                            Đội
+                                        </th>
+                                        <th>
+                                            Tên tài xế
+                                        </th>
+                                        <th>
+                                            Số danh bộ
+                                        </th>
+                                        <th>
+                                            Số cb
+                                        </th>
+                                        <th>
+                                            Km đầu máy
+                                        </th>
+                                        <th>
+                                            NL lời
+                                        </th>
+                                        <th>
+                                            NL lỗ
+                                        </th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.BCTTTXInfo)
+                                    {
+                                    <tr>
+                                        <td align="left">
+                                            @Html.DisplayFor(modelItem => item.TenDV)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Tram)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Doi)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TenTX)
+                                        </td>
+                                        <td align="center">
+                                            @Html.DisplayFor(modelItem => item.MaTX)
+                                        </td>
+                                        <td align="right">
+                                            @if (item.SoCB != 0)@Html.DisplayFor(modelItem => item.SoCB) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KM != 0)@Html.DisplayFor(modelItem => item.KM) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLLoi != 0)@Html.DisplayFor(modelItem => item.NLLoi) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLLo != 0)@Html.DisplayFor(modelItem => item.NLLo) else @Html.Display("--")
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="PdfReport_NLThanhtich">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="ExcelReport_NLThanhtich">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="WordReport_NLThanhtich">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="HtmlReport_NLThanhtich">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+ </main>

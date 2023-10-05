@@ -1,0 +1,472 @@
+﻿@model CoBaoWeb.Models.TTKTLogic
+@{
+    ViewData["Title"] = "CBGA KT Logic";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <form method="post" asp-controller="CoBaoGA" asp-action="KTLogicga">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                <select asp-for="KTLogicTT.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn trạng thái</h6>
+                                <select asp-for="KTLogicTT.Loaidon" id="drbTrangthai" class="form-control" asp-items="@ViewBag.loaidon">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Tháng</h6>
+                                <select asp-for="KTLogicTT.Thang" id="drbThang" class="form-control" asp-items="@ViewBag.thang">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Năm</h6>
+                                <select asp-for="KTLogicTT.Nam" id="drbNam" class="form-control" asp-items="@ViewBag.nam">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn số cơ báo</h6>
+                                <input asp-for="KTLogicTT.Daumay" type="text" class="form-control form-control-user" id="txtDaumay" placeholder="Nhập số đầu máy">
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                <button type="submit" class="btn btn-primary">Tra tìm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.KTQuayVong != null)
+                        {
+                            @if (Model.KTQuayVong.Count() > 0)
+                            {
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Cơ báo id
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Đơn vị
+                                            </th>
+                                            <th>
+                                                Tài xế id
+                                            </th>
+                                            <th>
+                                                Tài xế tên
+                                            </th>
+                                            <th>
+                                                Tháng đt
+                                            </th>
+                                            <th>
+                                                Năm đt
+                                            </th>
+                                            <th>
+                                                Quay vòng
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.KTQuayVong)
+                                        {
+                                            <tr>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.NgayCB)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.SoCB)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.CoBaoID)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.DauMayID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DvcbID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.TaiXe1ID)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXe1Name)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.ThangDT)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.NamDT)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.QuayVong != 0)@Html.DisplayFor(modelItem => item.QuayVong) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.KTDonThuan != null)
+                        {
+                            @if (Model.KTDonThuan.Count() > 0)
+                            {
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Cơ báo id
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Đơn vị
+                                            </th>
+                                            <th>
+                                                Tài xế id
+                                            </th>
+                                            <th>
+                                                Tài xế tên
+                                            </th>
+                                            <th>
+                                                Tháng đt
+                                            </th>
+                                            <th>
+                                                Năm đt
+                                            </th>
+                                            <th>
+                                                Đơn thuần
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.KTDonThuan)
+                                        {
+                                            <tr>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.NgayCB)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.SoCB)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.CoBaoID)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.DauMayID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DvcbID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.TaiXe1ID)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXe1Name)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.ThangDT)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.NamDT)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DonThuan != 0)@Html.DisplayFor(modelItem => item.DonThuan) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.KTVanTocKT != null)
+                        {
+                            @if (Model.KTVanTocKT.Count() > 0)
+                            {
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Cơ báo id
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Đơn vị
+                                            </th>
+                                            <th>
+                                                Tài xế id
+                                            </th>
+                                            <th>
+                                                Tài xế tên
+                                            </th>
+                                            <th>
+                                                Mác tầu
+                                            </th>
+                                            <th>
+                                                Công tác
+                                            </th>
+                                            <th>
+                                                Đơn thuần
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.KTVanTocKT)
+                                        {
+                                            <tr>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.NgayCB)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.SoCB)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.CoBaoID)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.DauMayID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DvcbID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.TaiXe1ID)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXe1Name)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.MacTauID)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.CongTacName)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.VanToc != 0)@Html.DisplayFor(modelItem => item.VanToc) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.KTDungKB != null)
+                        {
+                            @if (Model.KTDungKB.Count() > 0)
+                            {
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày giao
+                                            </th>
+                                            <th>
+                                                Ngày nhận
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                ĐV giao
+                                            </th>
+                                            <th>
+                                                ĐV nhận
+                                            </th>
+                                            <th>
+                                                CB giao
+                                            </th>
+                                            <th>
+                                                CB nhận
+                                            </th>
+                                            <th>
+                                                TX giao
+                                            </th>
+                                            <th>
+                                                TX nhận
+                                            </th>
+                                            <th>
+                                                Dừng kb
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.KTDungKB)
+                                        {
+                                            <tr>
+                                                <td style="min-width:150px">
+                                                    @Html.DisplayFor(modelItem => item.GiaoMay)
+                                                </td>
+                                                <td style="min-width:150px">
+                                                    @Html.DisplayFor(modelItem => item.NhanMay)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.DauMayID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DvGiao)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DvNhan)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.SoCBGiao)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.SoCBNhan)
+                                                </td>
+                                                <td style="min-width:180px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXeGiao)
+                                                </td>
+                                                <td style="min-width:180px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXeNhan)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DungKB != 0)@Html.DisplayFor(modelItem => item.DungKB) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.KTNhienLieu != null)
+                        {
+                            @if (Model.KTNhienLieu.Count() > 0)
+                            {
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày giao
+                                            </th>
+                                            <th>
+                                                Ngày nhận
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                ĐV giao
+                                            </th>
+                                            <th>
+                                                ĐV nhận
+                                            </th>
+                                            <th>
+                                                CB giao
+                                            </th>
+                                            <th>
+                                                CB nhận
+                                            </th>
+                                            <th>
+                                                TX giao
+                                            </th>
+                                            <th>
+                                                TX nhận
+                                            </th>
+                                            <th>
+                                                NL giao
+                                            </th>
+                                            <th>
+                                                NL nhận
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.KTNhienLieu)
+                                        {
+                                            <tr>
+                                                <td style="min-width:150px">
+                                                    @Html.DisplayFor(modelItem => item.GiaoMay)
+                                                </td>
+                                                <td style="min-width:150px">
+                                                    @Html.DisplayFor(modelItem => item.NhanMay)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.DauMayID)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DvGiao)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DvNhan)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.SoCBGiao)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.SoCBNhan)
+                                                </td>
+                                                <td style="min-width:180px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXeGiao)
+                                                </td>
+                                                <td style="min-width:180px">
+                                                    @Html.DisplayFor(modelItem => item.TaiXeNhan)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.NLBanGiao != 0)@Html.DisplayFor(modelItem => item.NLBanGiao) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.NLBanNhan != 0)@Html.DisplayFor(modelItem => item.NLBanNhan) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-footer py-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin kiểm tra: @Model.KTLogicTT.Loaibc</h6>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="CoBaoGA" asp-action="ExcelReport_KTLogicga">Xuất Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+   
+</main>

@@ -1,0 +1,132 @@
+﻿@model CoBaoWeb.Models.TTGiadm
+@{
+    ViewData["Title"] = "NL Giá dầu mỡ";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <form method="post" asp-controller="NhienLieu" asp-action="Giadm">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn trạm ln</h6>
+                                <select asp-for="Tramln" id="drbTramln" class="form-control" asp-items="@ViewBag.tramln">
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn dầu mỡ</h6>
+                                <select asp-for="Loaidm" id="drbLoaidm" class="form-control" asp-items="@ViewBag.loaidm">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                <input asp-for="Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" asp- format="{0:dd/MM/yyyy}" />
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                <input asp-for="End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                <button type="submit" class="btn btn-outline-primary">Tra tìm</button>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút Excel</h6>
+                                <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="NhienLieu" asp-action="ExcelReport_Giadm">Xuất Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.NL_BangGia != null)
+                        {
+                            @if (Model.NL_BangGia.Count() > 0)
+                            {
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Mã trạm
+                                            </th>
+                                            <th>
+                                                Tên trạm nl
+                                            </th>
+                                            <th>
+                                                Mã dm
+                                            </th>
+                                            <th>
+                                                Tên dầu mỡ
+                                            </th>
+                                            <th>
+                                                Đơn vị
+                                            </th>
+                                            <th>
+                                                Ngày hl
+                                            </th>
+                                            <th>
+                                                ID pn
+                                            </th>
+                                            <th>
+                                                Đơn giá
+                                            </th>
+                                            <th>
+                                                Tỷ trọng
+                                            </th>
+                                            <th>
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.NL_BangGia)
+                                        {
+                                            <tr>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.MaTramNL)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.TenTramNL)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.MaDauMo)
+                                                </td>
+                                                <td style="min-width:250px">
+                                                    @Html.DisplayFor(modelItem => item.TenDauMo)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.DonViTinh)
+                                                </td>
+                                                <td align="center" style="min-width:150px">
+                                                    @Html.DisplayFor(modelItem => item.NgayHL)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.PhieuNhapID)
+                                                </td>
+                                                <td align="right">
+                                                    @Html.DisplayFor(modelItem => item.DonGia)
+                                                </td>
+                                                <td align="right">
+                                                    @Html.DisplayFor(modelItem => item.TyTrong)
+                                                </td>
+                                                <td style="min-width:140px">
+                                                    @Html.DisplayFor(modelItem => item.GhiChu)
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+   
+</main>

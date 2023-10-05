@@ -1,0 +1,197 @@
+﻿@model CoBaoWeb.Models.TTCobaoga
+@{
+    ViewData["Title"] = "CBGA Cơ báo";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <form method="post" asp-controller="CoBaoGA" asp-action="Cobaoga">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                        <select asp-for="CobaoTT.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h6 class="m-0 font-weight-bold text-primary">Chọn trạng thái</h6>
+                                        <select asp-for="CobaoTT.Trangthai" id="drbTrangthai" class="form-control" asp-items="@ViewBag.trangthai">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                        <input asp-for="CobaoTT.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" asp- format="{0:dd/MM/yyyy}" />
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                        <input asp-for="CobaoTT.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Chọn số cơ báo</h6>
+                                        <input asp-for="CobaoTT.Socb" type="text" class="form-control form-control-user" id="txtSoCB" placeholder="Nhập số cơ báo">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Chọn đầu máy</h6>
+                                        <input asp-for="CobaoTT.Daumay" type="text" class="form-control form-control-user" id="txtDauMay" placeholder="Nhập đầu máy">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Chọn sh Tài xế</h6>
+                                        <input asp-for="CobaoTT.Taixe" type="text" class="form-control form-control-user" id="txtTaiXe" placeholder="Nhập sh tài xế">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                        <button type="submit" class="btn btn-primary">Tra tìm</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @if (Model.CoBaoGA != null)
+                    {
+                        @if (Model.CoBaoGA.Count() > 0)
+                        {
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Chi tiết
+                                        </th>
+                                        <th>
+                                            Ngày c.báo
+                                        </th>
+                                        <th>
+                                            Số c.báo
+                                        </th>
+                                        <th>
+                                            Trạng thái
+                                        </th>
+                                        <th>
+                                            Đầu máy
+                                        </th>
+                                        <th>
+                                            Tài xế
+                                        </th>
+                                        <th>
+                                            Phó xế
+                                        </th>
+                                        <th>
+                                            Lên ban
+                                        </th>
+                                        <th>
+                                            Nhận máy
+                                        </th>
+                                        <th>
+                                            Ra kho
+                                        </th>
+                                        <th>
+                                            Vào kho
+                                        </th>
+                                        <th>
+                                            Giao máy
+                                        </th>
+                                        <th>
+                                            Xuống ban
+                                        </th>
+                                        <th>
+                                            NL b.trước
+                                        </th>
+                                        <th>
+                                            NL lĩnh
+                                        </th>
+                                        <th>
+                                            NL trạm
+                                        </th>
+                                        <th>
+                                            NL t.đó
+                                        </th>
+                                        <th>
+                                            NL b.sau
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.CoBaoGA)
+                                    {
+                                    <tr>
+                                        <td style="min-width:60px">
+                                            @Html.ActionLink("Chi tiết", "Cobaogact", new { id = item.CoBaoID, cobaoGoc = item.CoBaoGoc }, new { target = "_blank" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NgayCB)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SoCB)
+                                        </td>
+                                        <td style="min-width:120px">
+                                            @Html.DisplayFor(modelItem => item.TrangThai)
+                                        </td>
+                                        <td style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.DauMayID)
+                                        </td>
+                                        <td style="min-width:170px">
+                                            @Html.DisplayFor(modelItem => item.TaiXe1Name)
+                                        </td>
+                                        <td style="min-width:170px">
+                                            @Html.DisplayFor(modelItem => item.PhoXe1Name)
+                                        </td>
+                                        <td style="min-width:140px">
+                                            @Html.DisplayFor(modelItem => item.LenBan)
+                                        </td>
+                                        <td style="min-width:140px">
+                                            @Html.DisplayFor(modelItem => item.NhanMay)
+                                        </td>
+                                        <td style="min-width:140px">
+                                            @Html.DisplayFor(modelItem => item.RaKho)
+                                        </td>
+                                        <td style="min-width:140px">
+                                            @Html.DisplayFor(modelItem => item.VaoKho)
+                                        </td>
+                                        <td style="min-width:140px">
+                                            @Html.DisplayFor(modelItem => item.GiaoMay)
+                                        </td>
+                                        <td style="min-width:140px">
+                                            @Html.DisplayFor(modelItem => item.XuongBan)
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLBanTruoc != 0)@Html.DisplayFor(modelItem => item.NLBanTruoc) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLLinh != 0)@Html.DisplayFor(modelItem => item.NLLinh) else @Html.Display("--")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TramNLID)
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLTrongDoan != 0)@Html.DisplayFor(modelItem => item.NLTrongDoan) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NLBanSau != 0)@Html.DisplayFor(modelItem => item.NLBanSau) else @Html.Display("--")
+                                        </td>
+                                    </tr>                                       
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</main>

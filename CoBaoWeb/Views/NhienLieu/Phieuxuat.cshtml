@@ -1,0 +1,147 @@
+﻿@model CoBaoWeb.Models.TTPhieuxuat
+@{
+    ViewData["Title"] = "NL Phiếu xuất";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <form method="post" asp-controller="NhienLieu" asp-action="Phieuxuat">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn trạm nl</h6>
+                                <select asp-for="Tramnl" id="drbTramnl" class="form-control" asp-items="@ViewBag.tramnl">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn loại máy</h6>
+                                <select asp-for="Loaimay" id="drbLoaiMay" class="form-control" asp-items="@ViewBag.loaimay">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                <input asp-for="Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" asp- format="{0:dd/MM/yyyy}" />
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                <input asp-for="End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn phiếu xuất</h6>
+                                <input asp-for="Mapx" type="text" class="form-control form-control-user" id="txtMaPX" placeholder="Nhập phiếu xuất">
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn đ.máy</h6>
+                                <input asp-for="Daumay" type="text" class="form-control form-control-user" id="txtDauMay" placeholder="Nhập đ.máy">
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                <button type="submit" class="btn btn-primary">Tra tìm</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @if (Model.NL_PhieuXuat != null)
+                    {
+                        @if (Model.NL_PhieuXuat.Count() > 0)
+                        {
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Chi tiết
+                                        </th>
+                                        <th>
+                                            Ngày xuất
+                                        </th>
+                                        <th>
+                                            Phiếu xuất
+                                        </th>
+                                        <th>
+                                            Loại phiếu
+                                        </th>
+                                        <th>
+                                            Mã trạm
+                                        </th>
+                                        <th>
+                                            Tên trạm nl
+                                        </th>
+                                        <th>
+                                           Đầu máy
+                                        </th>
+                                        <th>
+                                            Loại máy
+                                        </th>
+                                        <th>
+                                            Chứng từ
+                                        </th>
+                                        <th>
+                                            Người nhận
+                                        </th>
+                                        <th>
+                                            Lý do
+                                        </th>                                       
+                                        <th>
+                                            Khóa sổ
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.NL_PhieuXuat)
+                                    {
+                                    <tr>
+                                        <td style="min-width:60px">
+                                            @Html.ActionLink("Chi tiết", "Phieuxuatct", new { id = item.PhieuXuatID }, new { target = "_blank" })
+                                        </td>
+                                        <td align="center" style="min-width:140px">
+                                            @Html.DisplayFor(modelItem => item.NgayXuat)
+                                        </td>
+                                        <td align="center">
+                                            @Html.DisplayFor(modelItem => item.PhieuXuatID)
+                                        </td>
+                                        <td style="min-width:170px">
+                                            @Html.DisplayFor(modelItem => item.LoaiPhieu)
+                                        </td>
+                                        <td align="center">
+                                            @Html.DisplayFor(modelItem => item.MaTramNL)
+                                        </td>
+                                        <td style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.TenTramNL)
+                                        </td>
+                                        <td align="center" style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.DauMayID)
+                                        </td>
+                                        <td align="center">
+                                            @Html.DisplayFor(modelItem => item.LoaiMayID)
+                                        </td>
+                                        <td align="center">
+                                            @Html.DisplayFor(modelItem => item.SoChungTu)
+                                        </td>
+                                        <td style="min-width:200px">
+                                            @Html.DisplayFor(modelItem => item.NguoiNhan)
+                                        </td>                                        
+                                        <td style="min-width:200px">
+                                            @Html.DisplayFor(modelItem => item.LyDo)
+                                        </td>
+                                        <td align="center">
+                                            @Html.DisplayFor(modelItem => item.KhoaSo)
+                                        </td>
+                                    </tr>                                       
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</main>

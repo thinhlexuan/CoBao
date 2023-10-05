@@ -1,0 +1,158 @@
+﻿@model CoBaoWeb.Models.BCXuatkho
+@{
+    ViewData["Title"] = "NLBC Xuất kho";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="NhienLieu" asp-action="BCXuatkho">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">                       
+                                <div class="col-lg-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>                                
+                           
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nhóm báo cáo</h6>
+                                    <select asp-for="Nhombc" id="drbNhom" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>                               
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn loại báo cáo</h6>
+                                    <select asp-for="Loaibc" id="drbLoai" class="form-control" asp-items="@ViewBag.loaibc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-1">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary">Tra tìm</button>
+                                </div>                          
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.NL_BCXuatKho != null)
+                        {
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Ngày xuất
+                                    </th>
+                                    <th>
+                                        Phiếu xuất
+                                    </th>
+                                    <th>
+                                        Loại phiếu
+                                    </th>
+                                    <th>
+                                        Trạm nl
+                                    </th>
+                                    <th>
+                                       Đầu máy
+                                    </th>
+                                    <th>
+                                        Loại máy
+                                    </th>
+                                    <th>
+                                        Số chứng từ
+                                    </th>                                    
+                                    <th>
+                                        Người nhận
+                                    </th>
+                                    <th>
+                                        Lý do
+                                    </th>
+                                    <th>
+                                        Vcf
+                                    </th>
+                                    <th>
+                                        Tổng tiền
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.NL_BCXuatKho)
+                                {
+                                <tr>
+                                    <td align="center" style="min-width:140px">
+                                        @Html.DisplayFor(modelItem => item.NgayXuat)
+                                    </td>
+                                    <td align="center">
+                                        @Html.DisplayFor(modelItem => item.PhieuXuatID)
+                                    </td>
+                                    <td style="min-width:140px">
+                                        @Html.DisplayFor(modelItem => item.LoaiPhieu)
+                                    </td>
+                                    <td style="min-width:100px">
+                                        @Html.DisplayFor(modelItem => item.TenTramNL)
+                                    </td>
+                                    <td style="min-width:100px">
+                                        @Html.DisplayFor(modelItem => item.DauMayID)
+                                    </td>
+                                    <td style="min-width:80px">
+                                        @Html.DisplayFor(modelItem => item.LoaiMayID)
+                                    </td>
+                                    <td align="center">
+                                        @Html.DisplayFor(modelItem => item.SoChungTu)
+                                    </td>                                   
+                                    <td style="min-width:230px">
+                                        @Html.DisplayFor(modelItem => item.NguoiNhan)
+                                    </td>
+                                    <td style="min-width:230px">
+                                        @Html.DisplayFor(modelItem => item.LyDo)
+                                    </td>
+                                    <td align="right">
+                                        @if (item.VCF != 0)@Html.DisplayFor(modelItem => item.VCF) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.TongTien != 0)@Html.DisplayFor(modelItem => item.TongTien) else @Html.Display("--")
+                                    </td>
+                                </tr>
+                                }
+                    </tbody>
+                    </table>
+                    }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="NhienLieu" asp-action="PdfReport_BCXuatkho">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="NhienLieu" asp-action="ExcelReport_BCXuatkho">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="NhienLieu" asp-action="WordReport_BCXuatkho">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="NhienLieu" asp-action="HtmlReport_BCXuatkho">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+</main>

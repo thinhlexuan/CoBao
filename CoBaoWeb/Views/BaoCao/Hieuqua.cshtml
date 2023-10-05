@@ -1,0 +1,194 @@
+﻿@model CoBaoWeb.Models.BCHieuqua
+@{
+    ViewData["Title"] = "BC Hiệu quả";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="BaoCao" asp-action="Hieuqua">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="BCTratim.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nhóm báo cáo</h6>
+                                    <select asp-for="BCTratim.Loaidon" id="drbNguon" class="form-control" asp-items="@ViewBag.loaidon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nguồn</h6>
+                                    <select asp-for="BCTratim.Nguon" id="drbNguon" class="form-control" asp-items="@ViewBag.nguon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn báo cáo</h6>
+                                    <select asp-for="BCTratim.Nhombc" id="drbNhombc" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="BCTratim.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="BCTratim.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary" method="post" asp-controller="BaoCao" asp-action="Hieuqua">Tra tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.BCHieuQuaSDDMInfo != null)
+                        {
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                            <thead>
+                                <tr>
+                                    @if (Model.BCTratim.Loaidon == "0")
+                                    {
+                                        <th>
+                                            Xí nghiệp
+                                        </th>
+                                    }
+                                    <th>
+                                        Loại công tác
+                                    </th>
+                                    @if (Model.BCTratim.Loaidon == "1")
+                                    {
+                                        <th>
+                                            Loại máy
+                                        </th>
+                                    }
+                                        <th>
+                                            KM phụ trợ
+                                        </th>
+                                        <th>
+                                            KM chính
+                                        </th>
+                                        <th>
+                                            Tấn KM
+                                        </th>
+                                        <th>
+                                            Giờ đm
+                                        </th>
+                                        <th>
+                                            Giờ dồn
+                                        </th>
+                                        <th>
+                                            KM bình quân
+                                        </th>
+                                        <th>
+                                            Tấn bình quân
+                                        </th>
+                                        <th>
+                                            NS bình quân
+                                        </th>
+                                        <th>
+                                            Máy bình quân
+                                        </th>
+                                        <th>
+                                            NL tiêu thụ
+                                        </th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BCHieuQuaSDDMInfo)
+                                {
+                                <tr>
+                                    @if (Model.BCTratim.Loaidon == "0")
+                                    {
+                                        <td align="left" style="min-width:220px">
+                                            @Html.DisplayFor(modelItem => item.XiNghiep)
+                                        </td>
+                                    }
+                                    <td align="left" style="min-width:220px">
+                                        @Html.DisplayFor(modelItem => item.CongTac)
+                                    </td>
+                                    @if (Model.BCTratim.Loaidon == "1")
+                                    {
+                                        <td align="left" style="min-width:100px">
+                                            @Html.DisplayFor(modelItem => item.LoaiMay)
+                                        </td>
+                                    }
+                                        <td align="right">
+                                            @if (item.KmPhuTro != 0)@Html.DisplayFor(modelItem => item.KmPhuTro) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KmChinh != 0)@Html.DisplayFor(modelItem => item.KmChinh) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.VTKm != 0)@Html.DisplayFor(modelItem => item.VTKm) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.GioDM != 0)@Html.DisplayFor(modelItem => item.GioDM) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.GioDon != 0)@Html.DisplayFor(modelItem => item.GioDon) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.KmBQ != 0)@Html.DisplayFor(modelItem => item.KmBQ) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TanBQ != 0)@Html.DisplayFor(modelItem => item.TanBQ) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.NSuatBQ != 0)@Html.DisplayFor(modelItem => item.NSuatBQ) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.MayBQ != 0)@Html.DisplayFor(modelItem => item.MayBQ) else @Html.Display("--")
+                                        </td>
+                                        <td align="right">
+                                            @if (item.TieuThu != 0)@Html.DisplayFor(modelItem => item.TieuThu) else @Html.Display("--")
+                                        </td>
+                                    </tr>
+                                }
+                    </tbody>
+                    </table>
+                    }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="PdfReport_Hieuqua">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="ExcelReport_Hieuqua">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="WordReport_Hieuqua">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="HtmlReport_Hieuqua">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+</main>

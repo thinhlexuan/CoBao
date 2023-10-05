@@ -1,0 +1,259 @@
+﻿@model CoBaoWeb.Models.BCVandung
+@{
+    ViewData["Title"] = "BC Vận dụng";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="BaoCao" asp-action="Vandung">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="BCTratim.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn tuyến</h6>
+                                    <select asp-for="BCTratim.Tuyen" id="drbTuyen" class="form-control" asp-items="@ViewBag.tuyen">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn loại máy</h6>
+                                    <select asp-for="BCTratim.Loaimay" id="drbLoaimay" class="form-control" asp-items="@ViewBag.loaimay">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nguồn</h6>
+                                    <select asp-for="BCTratim.Nguon" id="drbNguon" class="form-control" asp-items="@ViewBag.nguon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn báo cáo</h6>
+                                    <select asp-for="BCTratim.Nhombc" id="drbNhombc" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="BCTratim.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="BCTratim.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary" method="post" asp-controller="BaoCao" asp-action="Vandung">Tra tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.BCVanDungInfo != null)
+                        {
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Mã số
+                                    </th>
+                                    <th>
+                                        Tên chỉ tiêu
+                                    </th>
+                                    <th>
+                                        KháchTN chính
+                                    </th>
+                                    <th>
+                                        KháchTN đơn
+                                    </th>
+                                    <th>
+                                        KháchTN ghép
+                                    </th>
+                                    <th>
+                                        KháchTN đẩy
+                                    </th>
+                                    <th>
+                                        KháchĐP chính
+                                    </th>
+                                    <th>
+                                        KháchĐP đơn
+                                    </th>
+                                    <th>
+                                        KháchĐP ghép
+                                    </th>
+                                    <th>
+                                        KháchĐP đẩy
+                                    </th>
+                                    <th>
+                                        Hàng chính
+                                    </th>
+                                    <th>
+                                        Hàng đơn
+                                    </th>
+                                    <th>
+                                        Hàng ghép
+                                    </th>
+                                    <th>
+                                        Hàng đẩy
+                                    </th>
+                                    <th>
+                                        Đá chính
+                                    </th>
+                                    <th>
+                                        Đá đơn
+                                    </th>
+                                    <th>
+                                        Đá ghép
+                                    </th>
+                                    <th>
+                                        Đá đẩy
+                                    </th>
+                                    <th>
+                                        Thoi chính
+                                    </th>
+                                    <th>
+                                        Thoi đơn
+                                    </th>
+                                    <th>
+                                        Thoi ghép
+                                    </th>
+                                    <th>
+                                        Thoi đẩy
+                                    </th>
+                                    <th>
+                                        Công dụng
+                                    </th>
+                                    <th>
+                                        Chuyên dồn
+                                    </th>
+                                    <th>
+                                        Tổng cộng
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BCVanDungInfo)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SoTT)
+                                    </td>
+                                    <td align="left" style="min-width:200px">
+                                        @Html.DisplayFor(modelItem => item.ChiTieu)
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachTNChinh != 0)@Html.DisplayFor(modelItem => item.KhachTNChinh) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachTNDon != 0)@Html.DisplayFor(modelItem => item.KhachTNDon) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachTNGhep != 0)@Html.DisplayFor(modelItem => item.KhachTNGhep) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachTNDay != 0)@Html.DisplayFor(modelItem => item.KhachTNDay) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachDPChinh != 0)@Html.DisplayFor(modelItem => item.KhachDPChinh) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachDPDon != 0)@Html.DisplayFor(modelItem => item.KhachDPDon) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachDPGhep != 0)@Html.DisplayFor(modelItem => item.KhachDPGhep) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.KhachDPDay != 0)@Html.DisplayFor(modelItem => item.KhachDPDay) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.HangChinh != 0)@Html.DisplayFor(modelItem => item.HangChinh) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.HangDon != 0)@Html.DisplayFor(modelItem => item.HangDon) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.HangGhep != 0)@Html.DisplayFor(modelItem => item.HangGhep) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.HangDay != 0)@Html.DisplayFor(modelItem => item.HangDay) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.DaChinh != 0)@Html.DisplayFor(modelItem => item.DaChinh) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.DaDon != 0)@Html.DisplayFor(modelItem => item.DaDon) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.DaGhep != 0)@Html.DisplayFor(modelItem => item.DaGhep) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.DaDay != 0)@Html.DisplayFor(modelItem => item.DaDay) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.ThoiChinh != 0)@Html.DisplayFor(modelItem => item.ThoiChinh) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.ThoiDon != 0)@Html.DisplayFor(modelItem => item.ThoiDon) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.ThoiGhep != 0)@Html.DisplayFor(modelItem => item.ThoiGhep) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.ThoiDay != 0)@Html.DisplayFor(modelItem => item.ThoiDay) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.CongDung != 0)@Html.DisplayFor(modelItem => item.CongDung) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.ChuyenDon != 0)@Html.DisplayFor(modelItem => item.ChuyenDon) else @Html.Display("--")
+                                    </td>
+                                    <td align="right">
+                                        @if (item.TongCong != 0)@Html.DisplayFor(modelItem => item.TongCong) else @Html.Display("--")
+                                    </td>
+                                </tr>
+                                }
+                    </tbody>
+                    </table>
+                    }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="PdfReport_Vandung">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="ExcelReport_Vandung">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="WordReport_Vandung">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="HtmlReport_Vandung">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>

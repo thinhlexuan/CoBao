@@ -1,0 +1,695 @@
+﻿@model CoBaoWeb.Models.TTXDoanthongdt
+@{
+    ViewData["Title"] = "CBĐT Xuất Đoạn thống";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <form method="post" asp-controller="CoBaoDT" asp-action="XDoanthongdt">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                <select asp-for="XCobaodtTT.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Tháng</h6>
+                                <select asp-for="XCobaodtTT.Thang" id="drbThang" class="form-control" asp-items="@ViewBag.thang">
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <h6 class="m-0 font-weight-bold text-primary">Năm</h6>
+                                <select asp-for="XCobaodtTT.Nam" id="drbNam" class="form-control" asp-items="@ViewBag.nam">
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                <button type="submit" class="btn btn-outline-primary">Tra tìm</button>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút Excel</h6>
+                                <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="CoBaoDT" asp-action="ExcelReport_XDoanthongdt">Xuất Excel</button>
+                            </div>
+                            <div class="col-lg-2">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.HNXuatDT != null)
+                        {
+                            @if (Model.HNXuatDT.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin đoạn thống Hà Nội: @Model.HNXuatDT.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Tài xế
+                                            </th>
+                                            <th>
+                                                Phó xế
+                                            </th>
+                                            <th>
+                                                Mác tầu
+                                            </th>
+                                            <th>
+                                                Công tác
+                                            </th>
+                                            <th>
+                                                Tính chất
+                                            </th>
+                                            <th>
+                                                Ga xp
+                                            </th>
+                                            <th>
+                                                Quay vòng
+                                            </th>
+                                            <th>
+                                                Lữ hành
+                                            </th>
+                                            <th>
+                                                Đơn thuần
+                                            </th>
+                                            <th>
+                                                Dồn xp
+                                            </th>
+                                            <th>
+                                                Dồn dd
+                                            </th>
+                                            <th>
+                                                Dồn kt
+                                            </th>
+                                            <th>
+                                                Dừng xp
+                                            </th>
+                                            <th>
+                                                Dừng dd
+                                            </th>
+                                            <th>
+                                                Dừng kt
+                                            </th>
+                                            <th>
+                                                Dừng qđ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.HNXuatDT)
+                                        {
+                                            <tr>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.daycb)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.socb)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.dmay)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.ten1)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.ten2)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.mtau)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.ctac)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.tchat)
+                                                </td>
+                                                <td style="min-width:120px">
+                                                    @Html.DisplayFor(modelItem => item.gaxp)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.giqv != 0)@Html.DisplayFor(modelItem => item.giqv) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.gilh != 0)@Html.DisplayFor(modelItem => item.gilh) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.gidt != 0)@Html.DisplayFor(modelItem => item.gidt) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dnxp != 0)@Html.DisplayFor(modelItem => item.dnxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dndd != 0)@Html.DisplayFor(modelItem => item.dndd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dncc != 0)@Html.DisplayFor(modelItem => item.dncc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgxp != 0)@Html.DisplayFor(modelItem => item.dgxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgdd != 0)@Html.DisplayFor(modelItem => item.dgdd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgcc != 0)@Html.DisplayFor(modelItem => item.dgcc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgqd != 0)@Html.DisplayFor(modelItem => item.dgqd) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.YVXuatDT != null)
+                        {
+                            @if (Model.YVXuatDT.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin đoạn thống Yên Viên: @Model.YVXuatDT.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Tài xế
+                                            </th>
+                                            <th>
+                                                Phó xế
+                                            </th>
+                                            <th>
+                                                Mác tầu
+                                            </th>
+                                            <th>
+                                                Công tác
+                                            </th>
+                                            <th>
+                                                Tính chất
+                                            </th>
+                                            <th>
+                                                Ga xp
+                                            </th>
+                                            <th>
+                                                Quay vòng
+                                            </th>
+                                            <th>
+                                                Lữ hành
+                                            </th>
+                                            <th>
+                                                Đơn thuần
+                                            </th>
+                                            <th>
+                                                Dồn xp
+                                            </th>
+                                            <th>
+                                                Dồn dd
+                                            </th>
+                                            <th>
+                                                Dồn kt
+                                            </th>
+                                            <th>
+                                                Dừng xp
+                                            </th>
+                                            <th>
+                                                Dừng dd
+                                            </th>
+                                            <th>
+                                                Dừng kt
+                                            </th>
+                                            <th>
+                                                Dừng qđ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.YVXuatDT)
+                                        {
+                                            <tr>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.DAYCB)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.SOCB)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.DMAY)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.TEN1)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.TEN2)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.MTAU)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.CTAC)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.TCHAT)
+                                                </td>
+                                                <td style="min-width:120px">
+                                                    @Html.DisplayFor(modelItem => item.GAXP)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.GIQV != 0)@Html.DisplayFor(modelItem => item.GIQV) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.GILH != 0)@Html.DisplayFor(modelItem => item.GILH) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.GIDT != 0)@Html.DisplayFor(modelItem => item.GIDT) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DNXP != 0)@Html.DisplayFor(modelItem => item.DNXP) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DNDD != 0)@Html.DisplayFor(modelItem => item.DNDD) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DNCC != 0)@Html.DisplayFor(modelItem => item.DNCC) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DGXP != 0)@Html.DisplayFor(modelItem => item.DGXP) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DGDD != 0)@Html.DisplayFor(modelItem => item.DGDD) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DGCC != 0)@Html.DisplayFor(modelItem => item.DGCC) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.DGQD != 0)@Html.DisplayFor(modelItem => item.DGQD) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.VIXuatDT != null)
+                        {
+                            @if (Model.VIXuatDT.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin đoạnt thống Vinh: @Model.VIXuatDT.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Tài xế
+                                            </th>
+                                            <th>
+                                                Phó xế
+                                            </th>
+                                            <th>
+                                                Mác tầu
+                                            </th>
+                                            <th>
+                                                Công tác
+                                            </th>
+                                            <th>
+                                                Tính chất
+                                            </th>
+                                            <th>
+                                                Ga xp
+                                            </th>
+                                            <th>
+                                                Quay vòng
+                                            </th>
+                                            <th>
+                                                Lữ hành
+                                            </th>
+                                            <th>
+                                                Đơn thuần
+                                            </th>
+                                            <th>
+                                                Dồn xp
+                                            </th>
+                                            <th>
+                                                Dồn dd
+                                            </th>
+                                            <th>
+                                                Dồn kt
+                                            </th>
+                                            <th>
+                                                Dừng xp
+                                            </th>
+                                            <th>
+                                                Dừng dd
+                                            </th>
+                                            <th>
+                                                Dừng kt
+                                            </th>
+                                            <th>
+                                                Dừng qđ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.VIXuatDT)
+                                        {
+                                            <tr>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.daycb)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.socb)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.dmay)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.ten1)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.ten2)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.tau)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.ctac)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.tchat)
+                                                </td>
+                                                <td style="min-width:120px">
+                                                    @Html.DisplayFor(modelItem => item.gaxp)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.giqv != 0)@Html.DisplayFor(modelItem => item.giqv) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.gilh != 0)@Html.DisplayFor(modelItem => item.gilh) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.gidt != 0)@Html.DisplayFor(modelItem => item.gidt) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dnxp != 0)@Html.DisplayFor(modelItem => item.dnxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dndd != 0)@Html.DisplayFor(modelItem => item.dndd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dncc != 0)@Html.DisplayFor(modelItem => item.dncc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgxp != 0)@Html.DisplayFor(modelItem => item.dgxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgdd != 0)@Html.DisplayFor(modelItem => item.dgdd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgcc != 0)@Html.DisplayFor(modelItem => item.dgcc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgqd != 0)@Html.DisplayFor(modelItem => item.dgqd) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.DNXuatDT != null)
+                        {
+                            @if (Model.DNXuatDT.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin đoạn thống Đà Nẵng: @Model.DNXuatDT.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>                                           
+                                            <th>
+                                                Mác tầu
+                                            </th>
+                                            <th>
+                                                Công tác
+                                            </th>                                           
+                                            <th>
+                                                Ga xp
+                                            </th>
+                                            <th>
+                                                Quay vòng
+                                            </th>
+                                            <th>
+                                                Lữ hành
+                                            </th>                                           
+                                            <th>
+                                                Dồn xp
+                                            </th>
+                                            <th>
+                                                Dồn dd
+                                            </th>
+                                            <th>
+                                                Dồn kt
+                                            </th>
+                                            <th>
+                                                Dừng xp
+                                            </th>
+                                            <th>
+                                                Dừng dd
+                                            </th>
+                                            <th>
+                                                Dừng kt
+                                            </th>                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DNXuatDT)
+                                        {
+                                            <tr>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.ngaydi)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.socb)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.madm)
+                                                </td>                                                
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.mactau)
+                                                </td>
+                                                <td align="center">
+                                                    @Html.DisplayFor(modelItem => item.mact)
+                                                </td>                                                
+                                                <td style="min-width:120px">
+                                                    @Html.DisplayFor(modelItem => item.gaxp)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.qvlh != 0)@Html.DisplayFor(modelItem => item.qvlh) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.lh != 0)@Html.DisplayFor(modelItem => item.lh) else @Html.Display("--")
+                                                </td>                                               
+                                                <td align="right">
+                                                    @if (item.donxp != 0)@Html.DisplayFor(modelItem => item.donxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dondd != 0)@Html.DisplayFor(modelItem => item.dondd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.doncc != 0)@Html.DisplayFor(modelItem => item.doncc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dungxp != 0)@Html.DisplayFor(modelItem => item.dungxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dungdd != 0)@Html.DisplayFor(modelItem => item.dungdd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dungcc != 0)@Html.DisplayFor(modelItem => item.dungcc) else @Html.Display("--")
+                                                </td>                                               
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                        @if (Model.SGXuatDT != null)
+                        {
+                            @if (Model.SGXuatDT.Count() > 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">Thông tin Đoạn thống Sài Gòn: @Model.SGXuatDT.Count().ToString("N0")</h6>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Ngày c.báo
+                                            </th>
+                                            <th>
+                                                Số c.báo
+                                            </th>
+                                            <th>
+                                                Đầu máy
+                                            </th>
+                                            <th>
+                                                Tài xế
+                                            </th>
+                                            <th>
+                                                Phó xế
+                                            </th>
+                                            <th>
+                                                Mác tầu
+                                            </th>
+                                            <th>
+                                                Công tác
+                                            </th>
+                                            <th>
+                                                Tính chất
+                                            </th>
+                                            <th>
+                                                Ga xp
+                                            </th>
+                                            <th>
+                                                Quay vòng
+                                            </th>
+                                            <th>
+                                                Lữ hành
+                                            </th>
+                                            <th>
+                                                Đơn thuần
+                                            </th>
+                                            <th>
+                                                Dồn xp
+                                            </th>
+                                            <th>
+                                                Dồn dd
+                                            </th>
+                                            <th>
+                                                Dồn kt
+                                            </th>
+                                            <th>
+                                                Dừng xp
+                                            </th>
+                                            <th>
+                                                Dừng dd
+                                            </th>
+                                            <th>
+                                                Dừng kt
+                                            </th>
+                                            <th>
+                                                Dừng qđ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.SGXuatDT)
+                                        {
+                                            <tr>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.daycb)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.socb)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.dmay)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.ten1)
+                                                </td>
+                                                <td style="min-width:170px">
+                                                    @Html.DisplayFor(modelItem => item.ten2)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.tau)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.ctac)
+                                                </td>
+                                                <td style="min-width:100px">
+                                                    @Html.DisplayFor(modelItem => item.tchat)
+                                                </td>
+                                                <td style="min-width:120px">
+                                                    @Html.DisplayFor(modelItem => item.gaxp)
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.giqv != 0)@Html.DisplayFor(modelItem => item.giqv) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.gilh != 0)@Html.DisplayFor(modelItem => item.gilh) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.gidt != 0)@Html.DisplayFor(modelItem => item.gidt) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dnxp != 0)@Html.DisplayFor(modelItem => item.dnxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dndd != 0)@Html.DisplayFor(modelItem => item.dndd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dncc != 0)@Html.DisplayFor(modelItem => item.dncc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgxp != 0)@Html.DisplayFor(modelItem => item.dgxp) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgdd != 0)@Html.DisplayFor(modelItem => item.dgdd) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgcc != 0)@Html.DisplayFor(modelItem => item.dgcc) else @Html.Display("--")
+                                                </td>
+                                                <td align="right">
+                                                    @if (item.dgqd != 0)@Html.DisplayFor(modelItem => item.dgqd) else @Html.Display("--")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>              
+            </div>
+        </form>
+    </div>   
+</main>

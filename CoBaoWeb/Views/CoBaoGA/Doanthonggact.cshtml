@@ -1,0 +1,588 @@
+﻿@model CoBaoWeb.Models.TTDoanthonggact
+@{
+    ViewData["Title"] = "CBGA ĐT Chi tiết";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cơ báo - @ViewData["Title"]</title>
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    @*<link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">           
+                <!-- Topbar -->
+                @await Html.PartialAsync("/Views/Shared/_Topbar.cshtml")                
+                <!-- Body Content -->
+            <div class="container-fluid">
+                <form method="post" asp-controller="CoBaoGA" asp-action="Cobaogact">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="col-lg-12">
+                                <div class="row" style="min-height:70px">
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Đầu máy</h6>
+                                        <input asp-for="DoanThongGAView.DauMayID" type="text" class="form-control form-control-user" id="txtDaumay" placeholder="Nhập đầu máy" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Số cơ báo</h6>
+                                        <input asp-for="DoanThongGAView.SoCB" type="text" class="form-control form-control-user" id="txtSocb" placeholder="Nhập số cơ báo" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Ngày cơ báo</h6>
+                                        @Html.TextBoxFor(Model => Model.DoanThongGAView.NgayCB, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @readonly="readonly"})                                       
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Đoạn thống id</h6>
+                                        <input asp-for="DoanThongGAView.DoanThongID" type="text" class="form-control form-control-user" id="txtId" placeholder="Nhập id" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Tháng đt</h6>
+                                        <input asp-for="DoanThongGAView.ThangDT" type="text" class="form-control form-control-user" id="txtThangdt" placeholder="Nhập tháng đt" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Năm đt</h6>
+                                        <input asp-for="DoanThongGAView.NamDT" type="text" class="form-control form-control-user" id="txtNamdt" placeholder="Nhập năm đt" readonly>
+                                    </div>
+                                </div>
+                                <div class="row" style="min-height:70px">
+                                    <div class="col-lg-1">
+                                        <h6 class="m-0 font-weight-bold text-primary">Mã tx1</h6>
+                                        <input asp-for="DoanThongGAView.TaiXe1ID" type="text" class="form-control form-control-user" id="txtMatx1" placeholder="Nhập số db 1" readonly>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Tên tài xế 1</h6>
+                                        <input asp-for="DoanThongGAView.TaiXe1Name" type="text" class="form-control form-control-user" id="txtTentx2" placeholder="Nhập tên tài xế 1" readonly>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <h6 class="m-0 font-weight-bold text-primary">Mã tx2</h6>
+                                        <input asp-for="DoanThongGAView.TaiXe2ID" type="text" class="form-control form-control-user" id="txtMatx2" placeholder="Nhập số db 2" readonly>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Tên tài xế 2</h6>
+                                        <input asp-for="DoanThongGAView.TaiXe2Name" type="text" class="form-control form-control-user" id="txtTentx2" placeholder="Nhập tên tài xế 2" readonly>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <h6 class="m-0 font-weight-bold text-primary">Mã tx3</h6>
+                                        <input asp-for="DoanThongGAView.TaiXe3ID" type="text" class="form-control form-control-user" id="txtMatx3" placeholder="Nhập số db 3" readonly>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Tên tài xế 3</h6>
+                                        <input asp-for="DoanThongGAView.TaiXe3Name" type="text" class="form-control form-control-user" id="txtTentx3" placeholder="Nhập tên tài xế 3" readonly>
+                                    </div>
+                                </div>
+                                <div class="row" style="min-height:70px">
+                                    <div class="col-lg-1">
+                                        <h6 class="m-0 font-weight-bold text-primary">Mã px1</h6>
+                                        <input asp-for="DoanThongGAView.PhoXe1ID" type="text" class="form-control form-control-user" id="txtMapx1" placeholder="Nhập số pdb 1" readonly>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Tên phó xế 1</h6>
+                                        <input asp-for="DoanThongGAView.PhoXe1Name" type="text" class="form-control form-control-user" id="txtTenpx2" placeholder="Nhập tên phó xế 1" readonly>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <h6 class="m-0 font-weight-bold text-primary">Mã px2</h6>
+                                        <input asp-for="DoanThongGAView.PhoXe2ID" type="text" class="form-control form-control-user" id="txtMapx2" placeholder="Nhập số pdb 2" readonly>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Tên phó xế 2</h6>
+                                        <input asp-for="DoanThongGAView.PhoXe2Name" type="text" class="form-control form-control-user" id="txtTenpx2" placeholder="Nhập tên phó xế 2" readonly>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <h6 class="m-0 font-weight-bold text-primary">Mã px3</h6>
+                                        <input asp-for="DoanThongGAView.PhoXe3ID" type="text" class="form-control form-control-user" id="txtMapx3" placeholder="Nhập số pdb 3" readonly>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Tên phó xế 3</h6>
+                                        <input asp-for="DoanThongGAView.PhoXe3Name" type="text" class="form-control form-control-user" id="txtTenpx3" placeholder="Nhập tên phó xế 3" readonly>
+                                    </div>
+                                </div>
+                                <div class="row" style="min-height:70px">
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Giờ lên ban</h6>
+                                        <input asp-for="DoanThongGAView.LenBan" type="text" class="form-control form-control-user" id="txtLenban" placeholder="Nhập giờ lên ban" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Giờ nhận máy</h6>
+                                        <input asp-for="DoanThongGAView.NhanMay" type="text" class="form-control form-control-user" id="txtNhanmay" placeholder="Nhập giờ nhận máy" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Giờ ra kho</h6>
+                                        <input asp-for="DoanThongGAView.RaKho" type="text" class="form-control form-control-user" id="txtRakho" placeholder="Nhập giờ ra kho" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Giờ vào kho</h6>
+                                        <input asp-for="DoanThongGAView.VaoKho" type="text" class="form-control form-control-user" id="txtVaokho" placeholder="Nhập giờ vào kho" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Giờ giao máy</h6>
+                                        <input asp-for="DoanThongGAView.GiaoMay" type="text" class="form-control form-control-user" id="txtGiaomay" placeholder="Nhập giờ giao máy" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">Giờ xuống ban</h6>
+                                        <input asp-for="DoanThongGAView.XuongBan" type="text" class="form-control form-control-user" id="txtXuongban" placeholder="Nhập giờ xuống ban" readonly>
+                                    </div>
+                                </div>
+                                <div class="row" style="min-height:70px">
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">NL ban trước</h6>
+                                        <input asp-for="DoanThongGAView.NLBanTruoc" type="text" class="form-control form-control-user" id="txtNLBantruoc" placeholder="Nhập NL ban trước" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">NL ban nhận</h6>
+                                        <input asp-for="DoanThongGAView.NLThucNhan" type="text" class="form-control form-control-user" id="txtNLThucnhan" placeholder="Nhập NL ban nhận" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">NL lĩnh</h6>
+                                        <input asp-for="DoanThongGAView.NLLinh" type="text" class="form-control form-control-user" id="txtNLLinh" placeholder="Nhập NL lĩnh" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">NL trạm</h6>
+                                        <input asp-for="DoanThongGAView.TramNLID" type="text" class="form-control form-control-user" id="txtNLTram" placeholder="Nhập NL trạm" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">NL trong đoạn</h6>
+                                        <input asp-for="DoanThongGAView.NLTrongDoan" type="text" class="form-control form-control-user" id="txtNLTrongdoan" placeholder="Nhập NL trong đoạn" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <h6 class="m-0 font-weight-bold text-primary">NL ban sau</h6>
+                                        <input asp-for="DoanThongGAView.NLBanSau" type="text" class="form-control form-control-user" id="txtNLBansau" placeholder="Nhập NL ban sau" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                @if (Model.DoanThongGAView != null)
+                                {
+                                    @if (Model.DoanThongGACT != null)
+                                    {
+                                        @if (Model.DoanThongGACT.Count() > 0)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary">Thông tin chi tiết đoạn thống: @Model.DoanThongGACT.Count().ToString("N0")</h6>
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Ngày xp
+                                                        </th>
+                                                        <th>
+                                                            Mác tầu
+                                                        </th>
+                                                        <th>
+                                                            Ga xuất phát
+                                                        </th>
+                                                        <th>
+                                                            Ga kết thúc
+                                                        </th>
+                                                        <th>
+                                                            Công tác
+                                                        </th>
+                                                        <th>
+                                                            Tính chất
+                                                        </th>
+                                                        <th>
+                                                            Quay vòng
+                                                        </th>
+                                                        <th>
+                                                            Lữ hành
+                                                        </th>
+                                                        <th>
+                                                            Đơn thuần
+                                                        </th>
+                                                        <th>
+                                                            Dồn xp
+                                                        </th>
+                                                        <th>
+                                                            Dồn dd
+                                                        </th>
+                                                        <th>
+                                                            Dồn kt
+                                                        </th>
+                                                        <th>
+                                                            Dừng xp
+                                                        </th>
+                                                        <th>
+                                                            Dừng dd
+                                                        </th>
+                                                        <th>
+                                                            Dừng kt
+                                                        </th>
+                                                        <th>
+                                                            Dừng qđ
+                                                        </th>
+                                                        <th>
+                                                            Dừng đm
+                                                        </th>
+                                                        <th>
+                                                            Dừng đn
+                                                        </th>
+                                                        <th>
+                                                            Dừng km
+                                                        </th>
+                                                        <th>
+                                                            Dừng kn
+                                                        </th>
+                                                        <th>
+                                                            Dừng nm
+                                                        </th>
+                                                        <th>
+                                                            KM chính
+                                                        </th>
+                                                        <th>
+                                                            KM đơn
+                                                        </th>
+                                                        <th>
+                                                            KM ghép
+                                                        </th>
+                                                        <th>
+                                                            KM đẩy
+                                                        </th>
+                                                        <th>
+                                                            TKM chính
+                                                        </th>
+                                                        <th>
+                                                            TKM đơn
+                                                        </th>
+                                                        <th>
+                                                            TKM ghép
+                                                        </th>
+                                                        <th>
+                                                            TKM đẩy
+                                                        </th>
+                                                        <th>
+                                                            Tấn bq
+                                                        </th>
+                                                        <th>
+                                                            Khu đoạn
+                                                        </th>
+                                                        <th>
+                                                            Định mức
+                                                        </th>
+                                                        <th>
+                                                            Tiêu thụ
+                                                        </th>
+                                                        <th>
+                                                            Diễn giải
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.DoanThongGACT)
+                                                    {
+                                                        <tr>
+                                                            <td style="min-width:160px">
+                                                                @Html.DisplayFor(modelItem => item.NgayXP)
+                                                            </td>
+                                                            <td style="min-width:100px">
+                                                                @Html.DisplayFor(modelItem => item.MacTauID)
+                                                            </td>
+                                                            <td style="min-width:120px">
+                                                                @Html.DisplayFor(modelItem => item.GaXPName)
+                                                            </td>
+                                                            <td style="min-width:120px">
+                                                                @Html.DisplayFor(modelItem => item.GaKTName)
+                                                            </td>
+                                                            <td style="min-width:100px">
+                                                                @Html.DisplayFor(modelItem => item.CongTacName)
+                                                            </td>
+                                                            <td style="min-width:100px">
+                                                                @Html.DisplayFor(modelItem => item.TinhChatName)
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.QuayVong != 0)@Html.DisplayFor(modelItem => item.QuayVong) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.LuHanh != 0)@Html.DisplayFor(modelItem => item.LuHanh) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DonThuan != 0)@Html.DisplayFor(modelItem => item.DonThuan) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DonXP != 0)@Html.DisplayFor(modelItem => item.DonXP) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DonDD != 0)@Html.DisplayFor(modelItem => item.DonDD) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DonKT != 0)@Html.DisplayFor(modelItem => item.DonKT) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungXP != 0)@Html.DisplayFor(modelItem => item.DungXP) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungDD != 0)@Html.DisplayFor(modelItem => item.DungDD) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungKT != 0)@Html.DisplayFor(modelItem => item.DungKT) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungQD != 0)@Html.DisplayFor(modelItem => item.DungQD) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungDM != 0)@Html.DisplayFor(modelItem => item.DungDM) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungDN != 0)@Html.DisplayFor(modelItem => item.DungDN) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungKhoDM != 0)@Html.DisplayFor(modelItem => item.DungKhoDN) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungKhoDN != 0)@Html.DisplayFor(modelItem => item.DungKhoDN) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DungNM != 0)@Html.DisplayFor(modelItem => item.DungNM) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.KMChinh != 0)@Html.DisplayFor(modelItem => item.KMChinh) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.KMDon != 0)@Html.DisplayFor(modelItem => item.KMDon) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.KMGhep != 0)@Html.DisplayFor(modelItem => item.KMGhep) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.KMDay != 0)@Html.DisplayFor(modelItem => item.KMDay) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.TKMChinh != 0)@Html.DisplayFor(modelItem => item.TKMChinh) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.TKMDon != 0)@Html.DisplayFor(modelItem => item.TKMDon) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.TKMGhep != 0)@Html.DisplayFor(modelItem => item.TKMGhep) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.TKMDay != 0)@Html.DisplayFor(modelItem => item.TKMDay) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.Tan != 0)@Html.DisplayFor(modelItem => item.Tan) else @Html.Display("--")
+                                                            </td>
+                                                            <td style="min-width:120px">
+                                                                @Html.DisplayFor(modelItem => item.KhuDoan)
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DinhMuc != 0)@Html.DisplayFor(modelItem => item.DinhMuc) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.TieuThu != 0)@Html.DisplayFor(modelItem => item.TieuThu) else @Html.Display("--")
+                                                            </td>
+                                                            <td style="min-width:450px">
+                                                                @Html.DisplayFor(modelItem => item.DienGiai)
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    }
+                                    @if (Model.DoanThongGADM != null)
+                                    {
+                                        @if (Model.DoanThongGADM.Count() > 0)
+                                        {
+                                            <h6 class="m-0 font-weight-bold text-primary">Thông tin dầu mỡ đoạn thống: @Model.DoanThongGADM.Count().ToString("N0")</h6>  
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Đoạn thống id
+                                                        </th>
+                                                        <th>
+                                                            Dầu mỡ id
+                                                        </th>
+                                                        <th>
+                                                            Loại dầu mỡ
+                                                        </th>
+                                                        <th>
+                                                            Đơn vị
+                                                        </th>
+                                                        <th>
+                                                            Định mức
+                                                        </th>
+                                                        <th>
+                                                            Tiêu thụ
+                                                        </th>
+                                                        <th>
+                                                            Diễn giải
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.DoanThongGADM)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.DoanThongID)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.LoaiDauMoID)
+                                                            </td>
+                                                            <td style="min-width:180px">
+                                                                @Html.DisplayFor(modelItem => item.LoaiDauMoName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.DonViTinh)
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.DinhMuc != 0)@Html.DisplayFor(modelItem => item.DinhMuc) else @Html.Display("--")
+                                                            </td>
+                                                            <td align="right">
+                                                                @if (item.TieuThu != 0)@Html.DisplayFor(modelItem => item.TieuThu) else @Html.Display("--")
+                                                            </td>
+                                                            <td style="min-width:auto">
+                                                                @Html.DisplayFor(modelItem => item.DienGiai)
+                                                            </td>                                                               
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    }
+                                    @if (Model.BCCoBaoTTInfo != null)
+                                    {
+                                        <h6 class="m-0 font-weight-bold text-primary">Thông tin thành tích cơ báo</h6>
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Gờ đầu máy
+                                                    </th>
+                                                    <th>
+                                                        Giờ lữ hành
+                                                    </th>
+                                                    <th>
+                                                        Giờ đơn thuần
+                                                    </th>
+                                                    <th>
+                                                        Giờ dồn
+                                                    </th>
+                                                    <th>
+                                                        Giờ dừng
+                                                    </th>
+                                                    <th>
+                                                        KM chạy
+                                                    </th>
+                                                    <th>
+                                                        Tấn km
+                                                    </th>
+                                                    <th>
+                                                        NL định mức
+                                                    </th>
+                                                    <th>
+                                                        NL tiêu thụ
+                                                    </th>
+                                                    <th>
+                                                        NL lời, lỗ
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.GioDM != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.GioDM) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.GioLH != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.GioLH) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.GioDT != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.GioDT) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.GioDon != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.GioDon) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.GioDung != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.GioDung) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.KMChay != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.KMChay) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.TKM != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.TKM) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.DinhMuc != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.DinhMuc) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.TieuThu != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.TieuThu) else @Html.Display("--")
+                                                    </td>
+                                                    <td align="right">
+                                                        @if (Model.BCCoBaoTTInfo.LoiLo != 0)@Html.DisplayFor(modelItem => Model.BCCoBaoTTInfo.LoiLo) else @Html.Display("--")
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <!-- Footer-->
+                        <div class="card-footer py-3">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="CoBaoGA" asp-action="PdfReport_Doanthonggact">Xuất Pdf</button>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="CoBaoGA" asp-action="ExcelReport_Doanthonggact">Xuất Excel</button>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="CoBaoGA" asp-action="WordReport_Doanthonggact">Xuất Word</button>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="CoBaoGA" asp-action="HtmlReport_Doanthonggact">Xuất Html</button>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                </div>
+                <!-- Footer -->
+                @await Html.PartialAsync("/Views/Shared/_Footer.cshtml")
+            </div>
+    </div>
+            <!-- Bootstrap core JavaScript-->
+            <script src="/vendor/jquery/jquery.min.js"></script>
+            <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+            <!-- Core plugin JavaScript-->
+            <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+            <!-- Custom scripts for all pages-->
+            <script src="/js/sb-admin-2.min.js"></script>
+
+            <!-- Page level plugins -->
+            @*<script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+            <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>*@
+
+            <!-- Page level custom scripts -->
+            @*<script src="/js/demo/datatables-demo.js"></script>*@
+
+</body>
+</html>

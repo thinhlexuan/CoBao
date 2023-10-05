@@ -1,0 +1,124 @@
+﻿@model CoBaoWeb.Models.TTNhacc
+@{
+    ViewData["Title"] = "NL Nhà cung cấp";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <form method="post" asp-controller="NhienLieu" asp-action="Nhacc">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="col-lg-12">
+                        <div class="row">                          
+                            <div class="col-lg-10">
+                                <h6 class="m-0 font-weight-bold text-primary">Chọn nhà cung cấp</h6>
+                                <input asp-for="Tenncc" type="text" class="form-control form-control-user" id="txtTenncc" placeholder="Nhập nhà cung cấp">
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                <button type="submit" class="btn btn-outline-primary">Tra tìm</button>
+                            </div>
+                            <div class="col-lg-1">
+                                <h6 class="m-0 font-weight-bold text-primary">Ấn nút Excel</h6>
+                                <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="NhienLieu" asp-action="ExcelReport_Nhacc">Xuất Excel</button>
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.NL_NhaCC != null)
+                        {
+                            @if (Model.NL_NhaCC.Count() > 0)
+                            {                              
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                                    <thead>
+                                        <tr>
+
+                                            <th>
+                                                ID
+                                            </th>
+                                            <th>
+                                                Tên tắt
+                                            </th>
+                                            <th>
+                                                Tên nhà cc
+                                            </th>
+                                            <th>
+                                                Địa chỉ
+                                            </th>
+                                            <th>
+                                                Điện thoại
+                                            </th>
+                                            <th>
+                                                Mst
+                                            </th>
+                                            <th>
+                                                Email
+                                            </th>
+                                            <th>
+                                                Website
+                                            </th>
+                                            <th>
+                                                Ngân hàng
+                                            </th>
+                                            <th>
+                                                Tài khoản
+                                            </th>
+                                            <th>
+                                                Trạng thái
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.NL_NhaCC)
+                                        {
+                                        <tr>
+                                            <td align="center">
+                                                @Html.DisplayFor(modelItem => item.ID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenTat)
+                                            </td>
+                                            <td style="min-width:250px">
+                                                @Html.DisplayFor(modelItem => item.TenNCC)
+                                            </td>
+                                            <td style="min-width:250px">
+                                                @Html.DisplayFor(modelItem => item.DiaChi)
+                                            </td>
+                                            <td align="center">
+                                                @Html.DisplayFor(modelItem => item.DienThoai)
+                                            </td>
+                                            <td align="center">
+                                                @Html.DisplayFor(modelItem => item.Mst)
+                                            </td>
+                                            <td style="min-width:100px">
+                                                @Html.DisplayFor(modelItem => item.Email)
+                                            </td>
+                                            <td style="min-width:100px">
+                                                @Html.DisplayFor(modelItem => item.Website)
+                                            </td>
+                                            <td style="min-width:100px">
+                                                @Html.DisplayFor(modelItem => item.NganHang)
+                                            </td>                                           
+                                            <td align="center">
+                                                @Html.DisplayFor(modelItem => item.TaiKhoan)
+                                            </td>                                           
+                                            <td align="center">
+                                                @Html.DisplayFor(modelItem => item.Active)
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>               
+            </div>
+        </form>
+    </div>
+   
+</main>

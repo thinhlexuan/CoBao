@@ -1,0 +1,152 @@
+﻿@model CoBaoWeb.Models.BCCTGiodon
+@{
+    ViewData["Title"] = "BC CT Giờ dồn";
+    Layout = "~/Views/Shared/_LayoutTable.cshtml";
+}
+<main>   
+    <div class="card shadow mb-4">
+        <form method="post" asp-controller="BaoCao" asp-action="CTGiodon">
+            <!-- Header-->
+            <div class="card-header py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn xí nghiệp</h6>
+                                    <select asp-for="BCTratim.Xinghiep" id="drbXinghiep" class="form-control" asp-items="@ViewBag.xinghiep">
+                                    </select>
+                                </div>  
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn chi nhánh khai thác</h6>
+                                    <select asp-for="BCTratim.chinhanh" id="drbChinhanh" class="form-control" asp-items="@ViewBag.chinhanh">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">                               
+                                <div class="col-lg-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn nguồn</h6>
+                                    <select asp-for="BCTratim.Nguon" id="drbNguon" class="form-control" asp-items="@ViewBag.nguon">
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chọn báo cáo</h6>
+                                    <select asp-for="BCTratim.Nhombc" id="drbNhombc" class="form-control" asp-items="@ViewBag.nhombc">
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày bắt đầu</h6>
+                                    <input asp-for="BCTratim.Begin" class="form-control ui-datepicker" type="date" placeholder="Ngày bắt đầu" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ngày kết thúc</h6>
+                                    <input asp-for="BCTratim.End" class="form-control ui-datepicker" type="date" placeholder="Ngày kết thúc" />
+                                </div>
+                                <div class="col-lg-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ấn nút tt</h6>
+                                    <button type="submit" class="btn btn-primary" method="post" asp-controller="BaoCao" asp-action="CTGiodon">Tra tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Body DataTales-->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @if (Model.BCCTGioDonInfo != null)
+                        {
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:blue">
+                            <thead>
+                                <tr>                                   
+                                    <th>
+                                        Chi nhánh kt
+                                    </th>
+                                    <th>
+                                        Ga dồn
+                                    </th>
+                                    <th>
+                                        Đầu máy
+                                    </th>
+                                    <th>
+                                        Số cb
+                                    </th>
+                                    <th>
+                                        Nhận máy
+                                    </th>
+                                    <th>
+                                        Mã TX
+                                    </th>
+                                    <th>
+                                        Tên tài xế
+                                    </th>
+                                    <th>
+                                        Phút dồn
+                                    </th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BCCTGioDonInfo)
+                                {
+                                <tr>                                    
+                                    <td align="left" style="min-width:220px">
+                                        @Html.DisplayFor(modelItem => item.DonViKT)
+                                    </td>
+                                    <td align="left" style="min-width:120px">
+                                        @Html.DisplayFor(modelItem => item.TenGa)
+                                    </td>
+                                    <td align="left" style="min-width:100px">
+                                        @Html.DisplayFor(modelItem => item.DauMay)
+                                    </td>
+                                    <td align="center">
+                                        @Html.DisplayFor(modelItem => item.SoCB)
+                                    </td>
+                                    <td align="center" style="min-width:140px">
+                                        @Html.DisplayFor(modelItem => item.NhanMay)
+                                    </td>
+                                    <td align="center">
+                                        @Html.DisplayFor(modelItem => item.MaTX)
+                                    </td>
+                                    <td align="left" style="min-width:180px">
+                                        @Html.DisplayFor(modelItem => item.TenTX)
+                                    </td>
+                                    <td align="right">
+                                        @Html.DisplayFor(modelItem => item.GioDon)
+                                    </td>                                    
+                                </tr>
+                                }
+                    </tbody>
+                    </table>
+                    }
+                    </div>
+                </div>
+            </div>
+            <!-- Footer-->
+            <div class="card-footer py-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="PdfReport_CTGiodon">Xuất Pdf</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="ExcelReport_CTGiodon">Xuất Excel</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="WordReport_CTGiodon">Xuất Word</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-outline-primary" method="post" asp-controller="BaoCao" asp-action="HtmlReport_CTGiodon">Xuất Html</button>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+</main>
